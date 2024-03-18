@@ -3,7 +3,8 @@ import contact from '../port-img/contact-logo.svg'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import webinfo from '../webvalues.json'
 import { useState} from 'react'
-import { sendEmail } from '../api'
+import axios from 'axios'
+
 
 
 function ContactMe () {
@@ -77,8 +78,8 @@ function ContactMe () {
 
     if (is_valid) {
       try {
-        const response = await sendEmail(uservalues)
-
+        const response = await axios.post(`/contact`,uservalues);
+        const result = await response.json();
         if (response.success) {
           alert(response.message)
           setUservalues({
@@ -90,6 +91,7 @@ function ContactMe () {
             user_zipcode: '',
             user_message: ''
           })
+          console.log(result);
         } else {
           throw new Error(response.message)
         }
@@ -204,7 +206,7 @@ function ContactMe () {
                         name='user_zipcode'
                         min='1'
                         onChange={handle_change}
-                        value={uservalues.user_zip}
+                        value={uservalues.user_zipcode}
                       />
                     </Form.Group>
                   </Row>
