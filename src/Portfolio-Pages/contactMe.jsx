@@ -79,9 +79,8 @@ function ContactMe () {
     if (is_valid) {
       try {
         const response = await axios.post(`https://fullstack-portfolio-navy.vercel.app/contact`,uservalues);
-        const result = await response.data;
-        if (response.success) {
-          alert(response.message)
+        if (response.status === 200) {
+          alert("Submitted Successfully, we'll contact you")
           setUservalues({
             user_firstname: '',
             user_lastname: '',
@@ -91,13 +90,13 @@ function ContactMe () {
             user_zipcode: '',
             user_message: ''
           })
-          console.log(result);
+         console.log(response.data);
         } else {
-          throw new Error(response.message)
+          throw new Error(response.data)
         }
       } catch (error) {
         console.error('Error sending email:', error)
-        alert('Failed to send email.')
+        alert('Submission Failed, Pls try again later.')
       }
 
      
