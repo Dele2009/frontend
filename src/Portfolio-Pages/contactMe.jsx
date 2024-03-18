@@ -78,7 +78,7 @@ function ContactMe () {
 
     if (is_valid) {
       try {
-        const response = await axios.post(`/contact`,uservalues);
+        const response = await axios.post(`https://fullstack-portfolio-navy.vercel.app/contact`,uservalues);
         const result = await response.json();
         if (response.success) {
           alert(response.message)
